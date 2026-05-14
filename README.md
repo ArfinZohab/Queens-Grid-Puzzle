@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Queens Grid Puzzle
 
 Currently under development.
