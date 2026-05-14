@@ -1,41 +1,22 @@
 # Queens Grid Puzzle
+A interactive web application based on the classical problem of N-Queens and the puzzle [Eight queens puzzle](https://en.wikipedia.org/wiki/Eight_queens_puzzle).
+Place $N$ queens on an $N \times N$ grid divided into uniquely coloured regions according to strict logic rules.
 
-Currently under development.
+---
+## Game Rules & Goals
+The objective of the game is to successfully place exactly **$N$ Queens** on the $N \times N$ board such that all of the following conditions are met simultaneously:
+1. **Row**: Exactly one Queen must be present in each horizontal row.
+2. **Column**: Exactly one Queen must be present in each vertical column.
+3. **Region**: Exactly one Queen must be present inside each uniquely colored region.
+4. **Touch**: No two Queens may touch each other horizontally, vertically, or diagonally.
 
-This project is inspired by the classical **8-Queens Problem** from chess and computer science.
+---
+## How to Play
+Interact with the grid cells using standard mouse clicks or touch gestures to manage your board deductions:
+- **Click Once (Cross / X)**: Places an **X** mark in the cell. Use this to track cells where you deduce a Queen cannot be placed.
+- **Click Twice (Queen / Crown)**: Places a **Queen** in the cell.
+- **Click & Drag (Mass Draw/Erase)**: Touch or click and drag continuously across cells to rapidly fill multiple empty cells with **X** marks, or drag starting from an existing **X** mark to erase them consecutively.
+- **Click Thrice (Clear)**: Empties the cell back to its original blank state.
+- **Auto Cross Toggle**: Enable the Auto Cross switch in the navigation header to automatically fill **X** marks in all intersecting rows, columns, regions, and neighbouring contact spots instantly whenever a Queen is placed.
 
-## What is the 8-Queens Problem?
-
-The 8-Queens puzzle is the challenge of placing eight chess queens on an 8×8 chessboard so that no two queens attack each other.
-
-This means:
-- No two queens can share the same row
-- No two queens can share the same column
-- No two queens can share the same diagonal
-
-Learn more:
-- [Eight queens puzzle — Wikipedia](https://en.wikipedia.org/wiki/Eight_queens_puzzle)
-
-## Solving the Problem Using Backtracking
-
-This project uses the **Backtracking Algorithm** to generate valid queen placements.
-
-Backtracking is a problem-solving technique that incrementally builds possible solutions and abandons a path as soon as it determines that the path cannot lead to a valid solution.
-
-For the 8-Queens problem:
-1. Place a queen in a safe position.
-2. Move to the next row and repeat.
-3. If no valid position exists, backtrack to the previous step.
-4. Continue until all queens are successfully placed.
-
-## Features (Planned)
-
-- Interactive queens puzzle gameplay
-- Visual board representation
-- Real-time validation
-- Backtracking-based solution generator
-- Multiple board sizes
-
-## Status
-
-🚧 Work in progress
+---

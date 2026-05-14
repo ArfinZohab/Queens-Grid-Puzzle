@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queens Grid Puzzle - Premium Logic Game</title>
+    <meta name="description"
+        content="Play the premium Queens Grid Puzzle. Place N queens on the board such that no two queens share a row, column, or colored region, and no two queens touch diagonally or orthogonally.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Floating Theme Change Toggle Button -->
+    <button id="btn-theme-toggle" class="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2"
+            fill="none">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2"
+            fill="none">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+
+    <div class="app-container">
+
+        <!-- Initial Menu Screen -->
+        <div id="menu-screen" class="menu-container glass-panel hidden">
+            <div class="menu-header">
+                <svg class="crown-logo large-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 19H22V21H2V19ZM3 5L5.5 13L9.5 7L12 15L14.5 7L18.5 13L21 5L19 17H5L3 5Z"
+                        fill="currentColor" />
+                </svg>
+                <h1>Queens Grid Puzzle</h1>
+                <p class="subtitle">Select a difficulty to start your mental challenge</p>
+            </div>
+
+            <!-- Resume / Continue Section -->
+            <div id="resume-section" class="resume-wrapper hidden">
+                <button id="btn-continue" class="btn btn-primary btn-resume">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    <span>Continue</span>
+                </button>
+            </div>
+
+            <!-- Difficulty Options List -->
+            <div class="difficulty-bars-list">
+                <button class="difficulty-bar glass-panel" data-size="5">
+                    <div class="diff-left">
+                        <span class="diff-title text-gold">Easy</span>
+                        <span class="diff-size">5 × 5</span>
+                    </div>
+                    <span class="best-time-badge" id="best-time-5">00:00</span>
+                </button>
+                <button class="difficulty-bar glass-panel" data-size="7">
+                    <div class="diff-left">
+                        <span class="diff-title text-gold">Medium</span>
+                        <span class="diff-size">7 × 7</span>
+                    </div>
+                    <span class="best-time-badge" id="best-time-7">00:00</span>
+                </button>
+                <button class="difficulty-bar glass-panel" data-size="9">
+                    <div class="diff-left">
+                        <span class="diff-title text-gold">Hard</span>
+                        <span class="diff-size">9 × 9</span>
+                    </div>
+                    <span class="best-time-badge" id="best-time-9">00:00</span>
+                </button>
+                <button class="difficulty-bar glass-panel" data-size="11">
+                    <div class="diff-left">
+                        <span class="diff-title text-gold">Expert</span>
+                        <span class="diff-size">11 × 11</span>
+                    </div>
+                    <span class="best-time-badge" id="best-time-11">00:00</span>
+                </button>
+            </div>
+
+            <!-- Custom Size Section -->
+            <div class="custom-size-box glass-panel">
+                <div class="custom-header">
+                    <span class="diff-title">Custom Grid</span>
+                    <select id="custom-size-select" class="premium-select custom-dropdown">
+                        <option value="5">5 × 5</option>
+                        <option value="6">6 × 6</option>
+                        <option value="7">7 × 7</option>
+                        <option value="8" selected>8 × 8</option>
+                        <option value="9">9 × 9</option>
+                        <option value="10">10 × 10</option>
+                        <option value="11">11 × 11</option>
+                        <option value="12">12 × 12</option>
+                        <option value="13">13 × 13</option>
+                        <option value="14">14 × 14</option>
+                        <option value="15">15 × 15</option>
+                    </select>
+                </div>
+                <div class="custom-actions">
+                    <span class="best-time-badge" id="best-time-custom">Best: --:--</span>
+                    <button id="btn-play-custom" class="btn btn-primary">Play Custom</button>
+                </div>
+            </div>
+
+            <!-- Reset All Progress -->
+            <div class="menu-footer">
+                <button id="btn-reset-progress" class="btn btn-danger-outline">
+                    <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                        <path d="M10 11v6M14 11v6" />
+                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                    </svg>
+                    Reset All Progress
+                </button>
+            </div>
+        </div><!-- /menu-screen -->
+
+        <!-- Main Gameplay Interface -->
+        <div id="gameplay-screen" class="gameplay-container hidden">
+            <header class="glass-panel">
+                <div class="header-content">
+                    <div class="logo-area">
+                        <svg class="crown-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 19H22V21H2V19ZM3 5L5.5 13L9.5 7L12 15L14.5 7L18.5 13L21 5L19 17H5L3 5Z"
+                                fill="currentColor" />
+                        </svg>
+                        <h1>Queens Grid</h1>
+                    </div>
+                    <nav class="controls-nav">
+                        <div class="toggle-wrapper">
+                            <label for="auto-cross-toggle" class="toggle-label">Auto Cross</label>
+                            <button id="auto-cross-toggle" class="btn-toggle" role="switch" aria-checked="false">
+                                <span class="toggle-thumb"></span>
+                            </button>
+                        </div>
+                        <button id="btn-pause" class="btn btn-secondary" title="Pause" data-paused="false">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <rect x="6" y="5" width="4" height="14" /><rect x="14" y="5" width="4" height="14" />
+                            </svg>
+                            Pause
+                        </button>
+                        <button id="btn-stats" class="btn btn-secondary" title="Personal Stats">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                            Stats
+                        </button>
+                        <button id="btn-menu" class="btn btn-secondary">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M3 12h18M3 6h18M3 18h18" />
+                            </svg>
+                            Menu
+                        </button>
+                        <button id="btn-new-game" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.99 6.57 2.6L21 8M21 3v5h-5" />
+                            </svg>
+                            Restart
+                        </button>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <!-- Left panel: How to Play + Rules -->
+                <aside class="sidebar sidebar-left glass-panel">
+                    <section class="info-section">
+                        <h2>How to Play</h2>
+                        <ul class="instructions-list">
+                            <li>
+                                <span class="action-badge">Click Once</span>
+                                <p>Place an <strong>X</strong> marker in the cell.</p>
+                            </li>
+                            <li>
+                                <span class="action-badge">Click Twice</span>
+                                <p>Place a <strong class="text-gold">Queen</strong> in the cell.</p>
+                            </li>
+                            <li>
+                                <span class="action-badge">Click &amp; Drag</span>
+                                <p>Draw or erase <strong>X</strong> marks across cells.</p>
+                            </li>
+                            <li>
+                                <span class="action-badge">Click Thrice</span>
+                                <p>Clear the cell back to empty.</p>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="rules-section">
+                        <h2>Puzzle Goals</h2>
+                        <div class="rule-item" id="rule-row">
+                            <span class="status-indicator"></span>
+                            <span>One Queen per row</span>
+                        </div>
+                        <div class="rule-item" id="rule-col">
+                            <span class="status-indicator"></span>
+                            <span>One Queen per column</span>
+                        </div>
+                        <div class="rule-item" id="rule-region">
+                            <span class="status-indicator"></span>
+                            <span>One Queen per region</span>
+                        </div>
+                        <div class="rule-item" id="rule-touch">
+                            <span class="status-indicator"></span>
+                            <span>No Queens touch</span>
+                        </div>
+                    </section>
+                </aside>
+
+                <!-- Center: Game Board -->
+                <section class="board-area">
+                    <div class="board-wrapper glass-panel">
+                        <div id="game-board" class="grid-board"></div>
+                        <!-- Pause Overlay -->
+                        <div id="pause-overlay" class="pause-overlay hidden">
+                            <div class="pause-content">
+                                <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none">
+                                    <rect x="6" y="5" width="4" height="14" /><rect x="14" y="5" width="4" height="14" />
+                                </svg>
+                                <p>Game Paused</p>
+                                <button class="btn btn-primary" onclick="document.getElementById('btn-pause').click()">Resume</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right panel: Live stats + action controls -->
+                <aside class="sidebar sidebar-right glass-panel">
+                    <section class="game-stats">
+                        <div class="stat-box">
+                            <span class="stat-label">Queens</span>
+                            <span class="stat-value" id="queens-count">0 / 5</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Time</span>
+                            <span class="stat-value" id="timer">00:00</span>
+                        </div>
+                    </section>
+
+                    <div class="action-buttons">
+                        <button id="btn-undo" class="btn btn-secondary" disabled>
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M3 10h10a5 5 0 0 1 5 5v0a5 5 0 0 1-5 5H7" /><polyline points="7 6 3 10 7 14" />
+                            </svg>
+                            Undo
+                        </button>
+                        <button id="btn-reset" class="btn btn-secondary">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
+                            Clear
+                        </button>
+                    </div>
+
+                    <section class="rules-section rules-right">
+                        <h2>Status</h2>
+                        <div class="rule-item" id="rule-row-r">
+                            <span class="status-indicator"></span>
+                            <span>Rows</span>
+                        </div>
+                        <div class="rule-item" id="rule-col-r">
+                            <span class="status-indicator"></span>
+                            <span>Columns</span>
+                        </div>
+                        <div class="rule-item" id="rule-region-r">
+                            <span class="status-indicator"></span>
+                            <span>Regions</span>
+                        </div>
+                        <div class="rule-item" id="rule-touch-r">
+                            <span class="status-indicator"></span>
+                            <span>No touching</span>
+                        </div>
+                    </section>
+                </aside>
+            </main>
+        </div>
+
+        <!-- Stats Modal -->
+        <div id="stats-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel premium-modal stats-modal-content">
+                <h2 style="color:var(--accent-gold)">📊 Personal Stats</h2>
+                <div id="stats-table-container" class="stats-table-wrapper"></div>
+                <button id="btn-close-stats" class="btn btn-secondary btn-large" style="margin-top:0.5rem;width:100%">Close</button>
+            </div>
+        </div>
+
+        <!-- Victory Modal -->
+        <div id="victory-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel premium-modal">
+                <div class="trophy-icon">🏆</div>
+                <h2>Brilliant Victory!</h2>
+                <p>You have successfully placed all queens and solved the puzzle.</p>
+                <div class="final-stats">
+                    <div>Time: <strong id="final-time">00:00</strong></div>
+                    <div>Grid Size: <strong id="final-size">7 × 7</strong></div>
+                </div>
+                <div class="best-time-notice mb-3 text-gold hidden" id="new-record-notice">✨ New Personal Best! ✨</div>
+                <button id="btn-play-again" class="btn btn-primary btn-large">Menu</button>
+            </div>
+        </div>
+        <!-- Confirm Reset Modal -->
+        <div id="confirm-reset-modal" class="modal-overlay hidden">
+            <div class="modal-content glass-panel premium-modal">
+                <div class="trophy-icon" style="font-size:3rem">⚠️</div>
+                <h2 style="color:var(--danger)">Reset All Progress?</h2>
+                <p>This will permanently delete all your best times and saved games. This cannot be undone.</p>
+                <div style="display:flex;gap:1rem;margin-top:0.5rem">
+                    <button id="btn-cancel-reset" class="btn btn-secondary btn-large" style="flex:1">Cancel</button>
+                    <button id="btn-confirm-reset" class="btn btn-large"
+                        style="flex:1;background:var(--danger);color:#fff">Yes, Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- YouTube Playables SDK -->
+    <script src="https://www.youtube.com/game_api/v1"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
