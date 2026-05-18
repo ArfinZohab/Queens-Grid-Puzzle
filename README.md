@@ -1,16 +1,34 @@
-# React + Vite
+# Queens Grid Puzzle
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A strategic logic puzzle game inspired by the classic **N-Queens Problem**.  
+The goal is to place the queens on the board such that no two queens attack each other.
 
-Currently, two official plugins are available:
+## Gameplay
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Each row can contain only **one queen**
+- Each column can contain only **one queen**
+- Each region can contain only **one queen**
+- Queens cannot be in adjacent cells
 
-## React Compiler
+As the board size increases, the puzzle becomes more challenging and requires careful planning and pattern recognition.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## About the N-Queens Problem
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The [N-Queens Problem](https://en.wikipedia.org/wiki/Eight_queens_puzzle) is a classic computer science and mathematics puzzle where the objective is to place **N queens on an N×N chessboard** so that no two queens threaten each other.
+
+---
+
+## Features
+
+- Interactive chessboard UI
+- Multiple difficulty levels
+- Real-time rule validation
+- Clean and responsive design
+- Puzzle-solving gameplay
+- Restart and reset functionality
+- Win detection system
+
+---
+
