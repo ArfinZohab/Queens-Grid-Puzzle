@@ -80,6 +80,7 @@ export function useGameState() {
     const [showConfirmReset, setShowConfirmReset] = useState(false);
     const [showSettings, setShowSettings]         = useState(false);
     const [isLightTheme, setIsLightTheme]       = useState(() => localStorage.getItem(THEME_KEY) === 'light');
+    const [queenMarker, setQueenMarker]         = useState(() => localStorage.getItem('queens_marker_pref') || 'queen');
 
     const [n, setN]                         = useState(5);
     const [solution, setSolution]           = useState([]);
@@ -142,6 +143,11 @@ export function useGameState() {
         document.body.classList.toggle('light-theme', isLightTheme);
         localStorage.setItem(THEME_KEY, isLightTheme ? 'light' : 'dark');
     }, [isLightTheme]);
+
+    // Marker preference sync
+    useEffect(() => {
+        localStorage.setItem('queens_marker_pref', queenMarker);
+    }, [queenMarker]);
 
     // ── Victory ───────────────────────────────────────────────────────────────
     function triggerVictory() {
@@ -351,6 +357,7 @@ export function useGameState() {
     return {
         screen, setScreen, showVictory, setShowVictory, showStats, setShowStats,
         showConfirmReset, setShowConfirmReset, showSettings, setShowSettings, isLightTheme, setIsLightTheme,
+        queenMarker, setQueenMarker,
         n, solution, regions, userState, history, isGameWon, isAutoCrossEnabled,
         isPaused, secondsElapsed, stats, newRecord, conflictData,
         initGame, startGame, continueGame, abandonGame, goToMenu, resetAllProgress,

@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useGameState } from './hooks/useGameState';
 import MenuScreen from './components/MenuScreen';
 import GameplayScreen from './components/GameplayScreen';
 import { VictoryModal, StatsModal, ConfirmResetModal, SettingsModal } from './components/Modals';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import { getTheme } from './theme';
 
 // ── App ───────────────────────────────────────────────────────────────────────
 
@@ -21,8 +23,13 @@ export default function App() {
         }
     }, []);
 
+    const theme = useMemo(() => {
+        return getTheme(game.isLightTheme ? 'light' : 'dark');
+    }, [game.isLightTheme]);
+
     return (
-        <>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <div className="app-container">
                 {game.screen === 'menu' ? (
                     <MenuScreen
@@ -43,6 +50,7 @@ export default function App() {
                         isPaused={game.isPaused}
                         canUndo={game.history.length > 0 && !game.isGameWon}
                         secondsElapsed={game.secondsElapsed}
+                        queenMarker={game.queenMarker}
                         onStats={() => game.setShowStats(true)}
                         onMenu={game.goToMenu}
                         onNewGame={() => game.initGame(game.n)}
@@ -92,9 +100,11 @@ export default function App() {
                     onToggleTheme={() => game.setIsLightTheme(v => !v)}
                     isAutoCrossEnabled={game.isAutoCrossEnabled}
                     onToggleAutoCross={game.toggleAutoCross}
+                    queenMarker={game.queenMarker}
+                    onChangeQueenMarker={game.setQueenMarker}
                     onClose={() => game.setShowSettings(false)}
                 />
             )}
-        </>
+        </ThemeProvider>
     );
 }

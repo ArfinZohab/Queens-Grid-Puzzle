@@ -6,6 +6,7 @@ import RightSidebar from './RightSidebar';
 export default function GameplayScreen({
     n, regions, userState, conflictData,
     isAutoCrossEnabled, isPaused, canUndo, secondsElapsed,
+    queenMarker,
     onStats, onMenu, onNewGame, onSettings,
     onToggleAutoCross, onTogglePause, onUndo, onClear,
     onCellPointerDown, onCellPointerEnter, onGestureEnd,
@@ -17,7 +18,7 @@ export default function GameplayScreen({
             <GameHeader onStats={onStats} onMenu={onMenu} onNewGame={onNewGame} onSettings={onSettings} />
 
             <main className="main-content">
-                <LeftSidebar conflictData={conflictData} />
+                <LeftSidebar conflictData={conflictData} queenMarker={queenMarker} />
 
                 <GameBoard
                     n={n}
@@ -25,6 +26,7 @@ export default function GameplayScreen({
                     userState={userState}
                     conflictData={conflictData}
                     isPaused={isPaused}
+                    queenMarker={queenMarker}
                     onTogglePause={onTogglePause}
                     onCellPointerDown={onCellPointerDown}
                     onCellPointerEnter={onCellPointerEnter}
@@ -39,6 +41,7 @@ export default function GameplayScreen({
                     isPaused={isPaused}
                     canUndo={canUndo}
                     conflictData={conflictData}
+                    queenMarker={queenMarker}
                     onToggleAutoCross={onToggleAutoCross}
                     onTogglePause={onTogglePause}
                     onUndo={onUndo}
